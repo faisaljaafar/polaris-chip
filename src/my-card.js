@@ -14,15 +14,41 @@ export class MyCard extends LitElement {
   constructor() {
     super();
     this.title = "My card";
+    this.image = "https://www.abc27.com/wp-content/uploads/sites/55/2020/01/PSU-Logo-10.20.17-1.jpg?w=1752&h=986&crop=1";
+    this.cardTitle = "Week 5 - IST256";
+    this.cardText = "This section is card text where I am able to add things without having to open description";
+    this.backgroundColor = 'turqoise';
+    this.fancy = false;
+    this.description = "This is the description section to my card.";
+  }
+
+  openChanged(e) {
+    if (e.target.getAttribute('open') !== null) {
+      this.fancy = true;
+    } else {
+      this.fancy = false;
+    }
+  }
+
+  static get properties() {
+    return {
+      fancy: { type: Boolean, reflect: true }
+    }
   }
 
   static get styles() {
     return css`
       :host {
-        display: block;
+      }
+      :host([fancy]) {
+        background-color: pink;
+        border: 2px solid fuchsia;
+        box-shadow: 10px 5px 5px red;
       }
 
-      .card {
+      
+
+  .card {
   width: 400px;
   border: 1px solid black;
   padding: 16px;
@@ -30,13 +56,22 @@ export class MyCard extends LitElement {
   background-color: turquoise;
 }
 
+.cardlist{
+  display: inline-flex;
+}
+.control-wrapper{
+}
 
+.card.change-color {
+background-color: green;
+}
 
 
 .card img {
   width: 100%;
   height: 200px; 
 }
+
 
 .btn-wrapper {
   background-color: orange;
@@ -47,12 +82,13 @@ export class MyCard extends LitElement {
 
 }
 
-.details-button {
+.card{
+
 }
 
 @media (min-width: 500px) and (max-width: 800px) {
   .details-button {
-    display: block;
+    display: flex;
   }
 }
 
@@ -71,29 +107,29 @@ export class MyCard extends LitElement {
 
   render() {
     return html`
-    
-<h1>Card changing 'app'</h1>
-<h2>Controls</h2>
-<div class="control-wrapper">
-  <button class="duplicate">Clone Card</button>
-  <button id="changetitle">Change title</button>
-  <button id="changeimage">Change image</button>
-  <button id="changebg">Change background</button>
-  <button id="delete">Delete card</button>
-</div>
-<h2>Awesome profs</h2>
-<div id="cardlist">
-  <div class="card">
-    <img class="card-image" src="https://www.abc27.com/wp-content/uploads/sites/55/2020/01/PSU-Logo-10.20.17-1.jpg?w=1752&h=986&crop=1" />
+
+<!-- <h2>Controls</h2> -->
+
+<div class="cardlist">
+
+<div class="card" style="background-color: ${this.backgroundColor}">
+    <h3 class="card-title">${this.cardTitle}</h3>
+    <img class="card-image" src=${this.image}>
     <div class="card-text">
-      <h3 class="card-title">Week 3 IST256</h3>
+    <details ?open="${this.fancy}" @toggle="${this.openChanged}">
+        <summary>Description</summary>
+        <div>
+          <slot>${this.description}</slot>
+        </div>
+      </details>
+
       <div class="card-details">
         <p>
-        This is the assignment for week 3.
+        ${this.cardText}
         </p>
         <h4>The goals</h4>
         <ul>
-          <li>Figure out why it won't clone to the right</li>
+          <li>To get my card working right</li>
         <h4>Learn more</h4>
         <ul class="links">
           <li>
@@ -108,11 +144,21 @@ export class MyCard extends LitElement {
     `;
   }
 
+  changeBackgroundColor(color) {
+    this.backgroundColor = color;
+    this.requestUpdate();
+  }
+
   static get properties() {
     return {
       title: { type: String },
+      image: {type: String},
+    cardTitle: {type: String},
+    cardText: {type: String},
+    backgroundColor: {type: String},
     };
   }
 }
 
 globalThis.customElements.define(MyCard.tag, MyCard);
+customElements.define('my-card', MyCard);

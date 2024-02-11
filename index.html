@@ -31,11 +31,60 @@
   <polaris-chip title="Cool stuff"></polaris-chip>
 
   <h1>my-card</h1>
-  <my-card></my-card>
 
+
+  <div class="control-wrapper">
+    <button class="duplicate">Clone Card</button>
+    <button id="changetitle">Change title</button>
+    <button id="changeimage">Change image</button>
+    <button id="changebg">Change background</button>
+    <button id="delete">Delete card</button>
+    
+  <div class="cardlist">
+    <my-card></my-card>
+    <my-card></my-card>
+    <my-card></my-card>
+    <my-card></my-card>
+    <my-card></my-card>
+  </div>  
+  
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
+  <script>
+      document.querySelector('.duplicate').addEventListener('click', function(event) {
+      const newCard = document.querySelector('my-card').cloneNode(true);
+
+    document.querySelector('.cardlist').appendChild(newCard);
+    });
+
+    document.querySelector('#changetitle').addEventListener('click', function(e) {
+      document.querySelector('my-card').cardTitle = "Something cool";
+    })
+
+
+    document.querySelector('#changeimage').addEventListener('click', function(e) {
+    const cards = document.querySelectorAll('my-card');
+    const newImage = "https://github.com/elmsln.png"; 
+    if (cards.length > 0) {
+      cards[0].image = newImage;
+    }
+  })
+
+    document.querySelector('#changebg').addEventListener('click', function(e) {
+    document.querySelector('my-card').changeBackgroundColor('green');
+  })
+
+  document.querySelector('#delete').addEventListener('click', function(e) {
+    const cards = document.querySelectorAll('my-card');
+    if (cards.length > 1) {
+      cards[cards.length - 1].remove();
+    }
+  })
+
+
+
+  </script>
 </body>
 
 </html>
