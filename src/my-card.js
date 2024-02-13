@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import "@lrnwebcomponents/meme-maker/meme-maker.js";
 
 /**
  * Now it's your turn. Here's what we need to try and do
@@ -114,7 +115,9 @@ background-color: green;
 
 <div class="card" style="background-color: ${this.backgroundColor}">
     <h3 class="card-title">${this.cardTitle}</h3>
-    <img class="card-image" src=${this.image}>
+    <!-- <img class="card-image" src=${this.image}> -->
+    <meme-maker alt="Cat stalking a small toy" image-url="https://cdn2.thecatapi.com/images/9j5.jpg" top-text="I bring you" bottom-text="the death">
+</meme-maker>
     <div class="card-text">
     <details ?open="${this.fancy}" @toggle="${this.openChanged}">
         <summary>Description</summary>
