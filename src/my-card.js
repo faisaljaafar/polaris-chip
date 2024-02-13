@@ -15,7 +15,7 @@ export class MyCard extends LitElement {
   constructor() {
     super();
     this.title = "My card";
-    this.image = "https://www.abc27.com/wp-content/uploads/sites/55/2020/01/PSU-Logo-10.20.17-1.jpg?w=1752&h=986&crop=1";
+    this.image = "https://cdn2.thecatapi.com/images/9j5.jpg";
     this.cardTitle = "Week 5 - IST256";
     this.cardText = "This section is card text where I am able to add things without having to open description";
     this.backgroundColor = 'turqoise';
@@ -116,7 +116,7 @@ background-color: green;
 <div class="card" style="background-color: ${this.backgroundColor}">
     <h3 class="card-title">${this.cardTitle}</h3>
     <!-- <img class="card-image" src=${this.image}> -->
-    <meme-maker alt="Cat stalking a small toy" image-url="https://cdn2.thecatapi.com/images/9j5.jpg" top-text="I bring you" bottom-text="the death">
+    <meme-maker alt="Cat stalking a small toy" image-url="${this.image}" top-text="I bring you" bottom-text="the death">
 </meme-maker>
     <div class="card-text">
     <details ?open="${this.fancy}" @toggle="${this.openChanged}">
