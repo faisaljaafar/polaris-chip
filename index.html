@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script type="module" src="src/counter.js"></script>
   <meta name="Description" content="Boilerplate for polaris chip">
   <base href="/">
 
@@ -48,6 +49,10 @@
     <my-card></my-card>
   </div>  
   
+  <h2>Counter App</h2>
+  <my-counter name="Counter 1" min="10" max="25"></my-counter>
+  <my-counter name="Counter 2" min="7" max="30"></my-counter>
+
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
@@ -88,3 +93,5 @@
 </body>
 
 </html>
+
+
