@@ -54,6 +54,12 @@ export class Counter extends LitElement {
         padding: 30px;
         margin: 8px;
       }
+
+      button:hover, button:focus{
+        background-color: red;
+      }
+
+
     `;
   }
 
@@ -72,7 +78,7 @@ export class Counter extends LitElement {
 
   updated(changedProperties) {
     if (changedProperties.has('count')) {
-      if (this.count === 18) {
+      if (this.count === 21) {
         this.makeItRain();
       }
       this.updateCounterColor();
