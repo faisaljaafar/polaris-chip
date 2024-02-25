@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script type="module" src="src/alertApp.js"></script>
   <script type="module" src="src/counter.js"></script>
   <meta name="Description" content="Boilerplate for polaris chip">
   <base href="/">
@@ -25,10 +26,13 @@
 </head>
 
 <body>
+
+  <alert-app status="notice" date="2024-02-25" sticky>
+    THIS ALERT MESSAGE STAYS AT THE TOP
+  </alert-app>
+ 
   <h1>polaris-chip</h1>
-  <!-- this is going to do whatever the tag's defaults are -->
   <polaris-chip></polaris-chip>
-  <!-- this is going to take the tag and change the title -->
   <polaris-chip title="Cool stuff"></polaris-chip>
 
   <h1>my-card</h1>
@@ -53,7 +57,24 @@
   <my-counter name="Counter 1" min="10" max="25"></my-counter>
   <my-counter name="Counter 2" min="7" max="30"></my-counter>
 
-  <!-- this is what is bringing in the definition for this tag -->
+  
+  <h2>Alert App</h2>
+
+  <alert-app status="notice" date="2024-02-22">
+    SOMETHING IS GOING ON READ THIS FIRST WHILE YOU ARE HERE
+  </alert-app>
+
+  <alert-app status="notice" date="2024-02-22">
+    SOMETHING IS GOING ON READ THIS FIRST WHILE YOU ARE HERE
+  </alert-app>
+  <alert-app status="warning" date="2024-02-23">
+    ANOTHER IMPORTANT MESSAGE
+  </alert-app>
+  <alert-app status="alert" date="2024-02-24">
+    URGENT: TAKE ACTION NOW
+  </alert-app>
+
+
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
   <script>
@@ -87,6 +108,7 @@
     }
   })
 
+  
 
 
   </script>
