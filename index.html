@@ -27,9 +27,7 @@
 
 <body>
 
-  <alert-app status="notice" date="2024-02-25" sticky>
-    THIS ALERT MESSAGE STAYS AT THE TOP
-  </alert-app>
+  <alert-app date="jan"></alert-app>
  
   <h1>polaris-chip</h1>
   <polaris-chip></polaris-chip>
@@ -67,9 +65,11 @@
   <alert-app status="notice" date="2024-02-22">
     SOMETHING IS GOING ON READ THIS FIRST WHILE YOU ARE HERE
   </alert-app>
+
   <alert-app status="warning" date="2024-02-23">
     ANOTHER IMPORTANT MESSAGE
   </alert-app>
+
   <alert-app status="alert" date="2024-02-24">
     URGENT: TAKE ACTION NOW
   </alert-app>
@@ -77,6 +77,7 @@
 
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
+  <script type="module" src="src/alertApp.js"></script>
   <script>
       document.querySelector('.duplicate').addEventListener('click', function(event) {
       const newCard = document.querySelector('my-card').cloneNode(true);

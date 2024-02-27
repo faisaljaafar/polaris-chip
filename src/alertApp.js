@@ -1,28 +1,23 @@
 import { LitElement, html, css } from 'lit';
 
-export class alertApp extends LitElement {
-  static get properties() {
-    return {
-      isOpen: { type: Boolean },
-      status: { type: String },
-      date: { type: String },
-      sticky: { type: Boolean }
-    };
-  }
+export class Alert extends LitElement {
+    static get tag() {
+        return 'alert-app';
+      }
 
   constructor() {
     super();
-    this.isOpen = localStorage.getItem('campusAlertOpen') !== 'false';
-    this.status = this.getAttribute('status') || 'notice';
-    this.date = this.getAttribute('date') || '';
-    this.sticky = this.hasAttribute('sticky');
+    // this.isOpen = localStorage.getItem('campusAlertOpen') !== 'false';
+    // this.status = this.getAttribute('status') || 'notice' || 'warning';
+    this.date =  'November';
+    // this.sticky = this.hasAttribute('sticky');
   }
 
   static get styles() {
     return css`
-    :host {
+    /* :host {
         position: static;
-      }
+      } */
       :host([sticky]) {
         position: fixed;
       }
@@ -55,28 +50,41 @@ export class alertApp extends LitElement {
         background-color: var(--close-button-background-color, #9eb217);
         border-radius: 5px;
       }
-      /* Add your additional CSS here */
+      /* Add additional CSS here */
     `;
   }
   
 
   render() {
-    return this.isOpen ? html`
+    return (   
+    html`
       <div id="alert">
         <div id="alert-content">
-          <strong>${this.date}</strong>
+          <p>${this.date}</p>
           <slot></slot>
         </div>
         <div id="close-button" @click="${this.toggle}">X CLOSE</div>
       </div>
-    ` : '';
+    ` 
+    )
   }
 
-  toggle() {
-    this.isOpen = !this.isOpen;
-    localStorage.setItem('campusAlertOpen', this.isOpen);
-    this.requestUpdate();
-  }
+  // toggle() {
+  //   this.isOpen = !this.isOpen;
+  //   localStorage.setItem('campusAlertOpen', this.isOpen);
+  //   this.requestUpdate();
+  // }
+
+
+static get properties() {
+  return {
+    // isOpen: { type: Boolean },
+    // status: { type: String },
+    date: { type: String },
+    // sticky: { type: Boolean }
+  };
+}
 }
 
-customElements.define('alert-app', alertApp);
+
+globalThis.customElements.define(Alert.tag, Alert);
