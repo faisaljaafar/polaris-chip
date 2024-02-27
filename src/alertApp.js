@@ -7,10 +7,10 @@ export class Alert extends LitElement {
 
   constructor() {
     super();
-    // this.isOpen = localStorage.getItem('campusAlertOpen') !== 'false';
-    // this.status = this.getAttribute('status') || 'notice' || 'warning';
+    this.isOpen = localStorage.getItem('campusAlertOpen') !== 'false';
+    this.status = this.getAttribute('status') || 'notice' || 'warning';
     this.date =  'November';
-    // this.sticky = this.hasAttribute('sticky');
+    this.sticky = this.hasAttribute('sticky');
   }
 
   static get styles() {
@@ -29,7 +29,6 @@ export class Alert extends LitElement {
         color: var(--text-color, #333);
         border-left: 10px solid var(--border-color, #333);
         font-family: Arial, sans-serif;
-        position: ${this.sticky ? 'fixed' : 'static'};
         top: 0;
       }
       #alert {
@@ -69,19 +68,19 @@ export class Alert extends LitElement {
     )
   }
 
-  // toggle() {
-  //   this.isOpen = !this.isOpen;
-  //   localStorage.setItem('campusAlertOpen', this.isOpen);
-  //   this.requestUpdate();
-  // }
+  toggle() {
+    this.isOpen = !this.isOpen;
+    localStorage.setItem('campusAlertOpen', this.isOpen);
+    this.requestUpdate();
+  }
 
 
 static get properties() {
   return {
-    // isOpen: { type: Boolean },
-    // status: { type: String },
+    isOpen: { type: Boolean },
+    status: { type: String },
     date: { type: String },
-    // sticky: { type: Boolean }
+    sticky: { type: Boolean }
   };
 }
 }
