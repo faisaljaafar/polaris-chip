@@ -15,38 +15,41 @@ export class Alert extends LitElement {
 
   static get styles() {
     return css`
-    /* :host {
+    :host {
         position: static;
-      } */
+      } 
+
       :host([sticky]) {
         position: fixed;
       }
+
       :host {
         display: block;
-        width: 100%;
+        width: 80%;
         padding: 10px;
-        background-color: var(--background-color, #f30303);
-        color: var(--text-color, #333);
+        background-color: var(--background-color, #bf8226);
+        transform: skew(20deg);
+        color: var(--text-color, #ffffff);
         border-left: 10px solid var(--border-color, #333);
-        font-family: Arial, sans-serif;
+        font-family: 'Roboto',Helvetica,Arial,Lucida,sans-serif;
         top: 0;
       }
+
       #alert {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border: 1px solid var(--border-color, #333);
-        border-radius: 5px;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
       }
+     
       #alert-content {
         flex-grow: 1;
         margin-right: 10px;
+        transform: skew(-20deg);
       }
       #close-button {
         cursor: pointer;
         padding: 5px;
-        background-color: var(--close-button-background-color, #9eb217);
+        background-color: var(--close-button-background-color, #e81111);
         border-radius: 5px;
       }
       /* Add additional CSS here */
