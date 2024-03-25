@@ -1,10 +1,13 @@
-import { LitElement, html, css } from 'lit';
+import {html, css } from 'lit';
 import "@lrnwebcomponents/rpg-character/rpg-character.js";
+import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
 
 
-class projectOne extends LitElement {
+class projectOne extends DDD {
   static properties = {
     items: { type: Array },
+    userName: { type: String },
+    seed: { type: Number }
   }
 
   static styles = css`
@@ -17,64 +20,65 @@ class projectOne extends LitElement {
       background-color: orange;
       padding: 16px;
     }
+
+    .user-container {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: rgba(255, 0, 0, 0.1); /* Faint red background */
+      padding: 16px;
+    }
+
+    .user {
+      margin: 16px;
+    }
   `;
 
   constructor() {
     super();
-    // MUST have array initialized as empty or it'll break in console
     this.items = [];
+    this.userName = '';
   }
 
-  addItem(e) {
-    const randomNumber = globalThis.crypto.getRandomValues(new Uint32Array(1))[0];
+  addUser(e) {
+    const randomNumber = Math.random(); // Generate a new random number for each user
 
     const item = {
       id: randomNumber,
-      title: "Cool",
-      content: "Some content of some kind",
+      title: this.userName,
+      content: this.userName,
       coolness: 7
     }
-    console.log(item);
-    // push by itself is not a mutating operation
     this.items.push(item);
     this.requestUpdate();
-    //this.items = [...this.items, item];
-    console.log(this.items);
   }
 
-  targetClicked(e) {
-    // what item bubbled the event
-    console.log(e.target);
-    // a way of seleecting the closest tag relative to what you clicked
-    console.log(e.target.closest('my-item'));
-    console.log(e.target.closest('my-item').getAttribute('data-id'));
-    // other ways of knowing what to eliminate but this is one method
-    this.shadowRoot.querySelectorAll('my-item').forEach((item) => {
-      if (item === e.target.closest('my-item')) {
-        console.log(item);
-        console.log('found the thing clicked in the array');
-      }
-    });
-
-    // another way of finding the index that matches what was clicked if you have a unique value in your items as added
-    // which... seed / name of the user should be enforced to be unique so.....
+  deleteUser(e) {
     const index = this.items.findIndex((item) => {
-      return item.id === parseInt(e.target.closest('my-item').getAttribute('data-id'));
+      return item.title === this.userName;
     });
-    console.log(index);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+      this.requestUpdate();
+    }
+  }
+
+  handleInput(e) {
+    this.userName = e.target.value;
   }
 
   render() {
     return html`
      <div>
-      <button @click="${this.addItem}">Add item</button>
+      <input type="text" .value="${this.userName}" @input="${this.handleInput}" placeholder="Type user's name here">
+      <button @click="${this.addUser}">Add User</button>
+      <button @click="${this.deleteUser}">Delete User</button>
      </div>
-     <div>
+     <div class="user-container">
         ${this.items.map((item) => html`
-          <my-item title="${item.title}" @click="${this.targetClicked}" data-id="${item.id}">
-          ${item.content}
-          <strong>${item.coolness}</strong>
-          </my-item>
+          <div class="user">
+            <rpg-character name="${item.title}" seed="${item.id}"></rpg-character>
+            <p>${item.title}</p>
+          </div>
         `)}
       </div>
     `;
