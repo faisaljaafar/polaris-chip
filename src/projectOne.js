@@ -2,6 +2,20 @@ import {html, css } from 'lit';
 import "@lrnwebcomponents/rpg-character/rpg-character.js";
 import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
 import "@lrnwebcomponents/multiple-choice/lib/confetti-container.js";
+// import copy from 'rollup-plugin-copy';
+
+// copy({
+//   targets: [
+//     {
+//       src: 'node_modules/@lrnwebcomponents/rpg-character/lib',
+//       dest: 'dist',
+//     },
+//     {
+//       src: 'src/dltBtn.png',
+//       dest: 'dist',
+//     },
+//   ],
+// });
 
 class projectOne extends DDD {
   static properties = {
