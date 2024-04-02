@@ -7,18 +7,7 @@ import { generateSW } from 'rollup-plugin-workbox';
 import path from 'path';
 import copy from 'rollup-plugin-copy';
 
-copy({
-  targets: [
-    {
-      src: 'node_modules/@lrnwebcomponents/rpg-character/lib',
-      dest: 'dist',
-    },
-    {
-      src: 'src/dltBtn.png',
-      dest: 'dist',
-    },
-  ],
-});
+
 
 export default {
   input: 'index.html',
@@ -37,6 +26,18 @@ export default {
       minify: true,
       injectServiceWorker: true,
       serviceWorkerPath: 'dist/sw.js',
+    }),
+    copy({
+      targets: [
+        {
+          src: 'node_modules/@lrnwebcomponents/rpg-character/lib',
+          dest: 'dist',
+        },
+        {
+          src: 'src/dltBtn.png',
+          dest: 'dist',
+        },
+      ],
     }),
     /** Resolve bare module imports */
     nodeResolve(),
