@@ -33,10 +33,6 @@ export default {
           src: 'node_modules/@lrnwebcomponents/rpg-character/lib',
           dest: 'dist',
         },
-        {
-          src: 'src/dltBtn.png',
-          dest: 'dist',
-        },
       ],
     }),
     /** Resolve bare module imports */
