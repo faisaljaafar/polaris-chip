@@ -9,14 +9,16 @@ class projectOne extends DDD {
     userName: { type: String },
     seed: { type: Number },
     deleteQueue: { type: Array },
-    showRules: { type: Boolean }
+    showRules: { type: Boolean },
+    partyCount: { type: Number }, // Add a new property to keep track of the party count
+    savedParties: { type: Array } // Add a new property to store the saved parties
   }
 
   static styles = css`
     :host {
      display: block;
      background-color: rgba(255, 0, 0, 0.1); /* Faint red background */
-     padding: 16px;
+     padding: var(--ddd-spacing-6);
      align-items: center;
      text-align: center;
      justify-content: center;
@@ -26,10 +28,13 @@ class projectOne extends DDD {
     .character-container {
       display: flex;
       flex-wrap: wrap;
+      max-width: var(--haxcms-party-ui-party-width, 90vw);
+      height: var(--haxcms-party-ui-party-height, 250px);
       background-color: rgba(255, 0, 0, 0.1); /* Faint red background */
-      border: 4px solid black; /* Thicker black border */
-      padding: 16px;
-      margin: 16px;
+      border: 10px solid var(--ddd-theme-default-nittanyNavy); 
+      padding: var(--ddd-spacing-6);
+      margin: var(--ddd-spacing-10);
+      box-shadow: -5px 0 0 0 black, 5px 0 0 0 black, 0 -5px 0 0 black, 0 5px 0 0 black;
     }
 
     .user {
@@ -46,7 +51,7 @@ class projectOne extends DDD {
       background-color: red; /* Red background for Delete button */
       color: white; /* White color for the text */
       font-family: "Press Start 2P", system-ui;
-      font-size: 7px
+      font-size: 17px;
       text-align: center; /* Center the text */
       line-height: 20px; /* Align the text vertically */
       cursor: pointer;
@@ -60,10 +65,11 @@ class projectOne extends DDD {
       font-size: 0.8em;
     }
 
-    .add-button, .save-button, .cancel-button, .rules-button, input[type="text"] {
+    .add-button, .save-button, .cancel-button, .save-party-button, .rules-button, input[type="text"] {
       font-family: "Press Start 2P", system-ui;
       font-size: var(--ddd-font-size-3xs);
       min-width: 100px; 
+      max-width: var(--haxcms-party-ui-party-width, 90vw);
       margin: var(--ddd-spacing-3);
       padding: var(--ddd-spacing-5);
       color: var(--ddd-theme-default-wonderPurple);
@@ -71,15 +77,23 @@ class projectOne extends DDD {
     }
 
     .add-button, .save-button {
-      background-color: green; /* Green for Add and Save */
+      background-color: var(--ddd-theme-default-futureLime); /* Green for Add and Save */
+      color: var(--ddd-theme-default-slateMaxDark);
     }
 
     .cancel-button {
-      background-color: red; /* Red for Cancel */
+      background-color: var(--ddd-theme-default-original87Pink); /* Red for Cancel */
+      color: var(--ddd-theme-default-slateMaxDark);
     }
 
     .rules-button {
-      background-color: yellow; /* Yellow for Username Rules */
+      background-color: var(--ddd-theme-default-keystoneYellow); /* Yellow for Username Rules */
+      color: var(--ddd-theme-default-slateMaxDark);
+    }
+
+    .save-party-button {
+      background-color: blue; /* Blue for Save Party */
+      color: var(--ddd-theme-default-slateMaxLight);
     }
 
     input[type="text"] {
@@ -97,6 +111,8 @@ class projectOne extends DDD {
     this.userName = '';
     this.deleteQueue = [];
     this.showRules = false;
+    this.partyCount = 0; // Initialize the party count to 0
+    this.savedParties = []; // Initialize the saved parties array
   }
 
   addUser(e) {
@@ -170,12 +186,24 @@ class projectOne extends DDD {
     }, 0);
   }
 
+  saveParty() {
+    this.partyCount++; // Increment the party count
+    const party = {
+      id: this.partyCount,
+      title: `Party ${this.partyCount}`,
+      members: [...this.items] // Copy the current party members
+    };
+    this.savedParties.push(party); // Save the current party
+    this.requestUpdate();
+  }
+
   render() {
     return html`
      <confetti-container id="confetti">
       <div>
         <p>Anything which does not meet these rules will automatically be adjusted!</p>
         <button class="rules-button" @click="${this.toggleRules}">Username rules +</button>
+        <p></p>
         ${this.showRules ? html`
           <ul>
             <li>No spaces</li>
@@ -199,6 +227,22 @@ class projectOne extends DDD {
       <div>
         <button class="save-button" @click="${this.saveDeletions}">Save</button>
         <button class="cancel-button" @click="${this.cancelDeletions}">Cancel</button>
+        <p></p>
+        <button class="save-party-button" @click="${this.saveParty}">Save Party</button> <!-- Add the Save Party button -->
+      </div>
+      <div>
+        ${this.savedParties.map((party) => html`
+          <div class="party">
+            <h2>${party.title}</h2>
+            <div class="party-members">
+              ${party.members.map((member) => html`
+                <div class="party-member">
+                  <p>${member.title}</p>
+                </div>
+              `)}
+            </div>
+          </div>
+        `)}
       </div>
      </confetti-container>
     `;
